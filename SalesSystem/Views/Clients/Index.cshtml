@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Client>
+
+@{
+    ViewData["Title"] = " سجل العملاء";
+}
+<a class="btn btn-primary btn-lg" asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    اضافة عميل
+</a>
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">لا يوجد عملاء</h4>
+        <p class="mb-0">لم يتم اضافة عميل.</p>
+    </div>
+}
+else
+{
+   <div class="mt-5">
+        <table class="table table-hover" id="sampleTable">
+            <thead>
+                <tr>
+                    <th scope="col">الكود</th>
+                    <th scope="col">اسم العميل</th>
+                    <th scope="col">التلفون</th>
+                    <th scope="col">اسم المجموعه</th>
+                    <th>عرض</th>
+                    <th scope="col">تعديل  </th>
+                    <th scope="col"> حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model)
+                {
+                    <tr>
+
+                        <td>@client.Id</td>
+
+                        <td>@client.Name</td>
+
+
+                        <td>@client.Phone</td>
+
+                        <td>@client.TypeClient.Name</td>
+
+                        <td class="align-middle">
+                            <a class="btn btn-info rounded rounded-3 me-2" asp-action="" asp-route-id="@client.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                             </td>
+                        <td>
+                            <a class="btn btn-info rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@client.Id">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@client.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                            
+
+                       
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts
+{
+    <script src="~/js/games-index.js" asp-append-version="true"></script>
+}

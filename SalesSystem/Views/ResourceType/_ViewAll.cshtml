@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ResourceType>
+
+@{
+    ViewData["Title"] = " سجل مجموعة الموردين";
+}
+
+<a class="btn btn-success text-white btn-lg" onclick="showInPopup('@Url.Action("AddOrEdit","ResourceType",null,Context.Request.Scheme)','اضافة مجموعة موردين')">
+
+    <i class="bi bi-plus-circle-dotted"></i>
+    اضافة مجموعة موردين
+</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">لا يوجد مجموعة موردين</h4>
+        <p class="mb-0">لم يتم اضافة مجموعة موردين.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-hover" id="sampleTable">
+            <thead>
+                <tr>
+                    <th scope="col">اسم المجموعة </th>
+                    <th scope="col">وصف المجموعة  </th>
+
+                   
+                    <th scope="col">الاحداث  </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var resourcetype in Model)
+                {
+                    <tr>
+
+
+
+                        <td>@resourcetype.Name</td>
+                        <td>@resourcetype.Desc</td>
+
+
+                        
+
+                      <td>
+                            <a onclick="showInPopup('@Url.Action("AddOrEdit","ResourceType",new {id=resourcetype.Id},Context.Request.Scheme)',' تعديل مجموعة الموردين')" class="btn btn-info rounded rounded-3 me-2">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@resourcetype.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+

@@ -1,0 +1,73 @@
+﻿@model CreateProductFormViewModel
+@{
+    ViewData["Title"] = "اضافه عميل";
+}
+<h5>اضافة صنف  <i class="bi bi-plus-circle-dotted"></i></h5>
+
+
+<form asp-controller="Products" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name" class="form-label mt-4"></label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger">  </span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="StockId" asp-items="Model.Stock"
+                        data-placeholder="اختر المخزن" data-minimum-results-for-search="Infinity">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="StockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="ItemId" asp-items="Model.Item"
+                        data-placeholder="اختر المجموعه" data-minimum-results-for-search="Infinity">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Barcode" class="form-label mt-4"></label>
+                <textarea asp-for="Barcode" class="form-control" placeholder="الباركود"></textarea>
+                <span asp-validation-for="Barcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceSale" class="form-label mt-4"></label>
+                <input asp-for="PriceSale" class="form-control" placeholder="التلفون">
+                <span asp-validation-for="PriceSale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePruchase" class="form-label mt-4"></label>
+                <input asp-for="PricePruchase" class="form-control" placeholder="الرصيد">
+                <span asp-validation-for="PricePruchase" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuentityStock" class="form-label mt-4"></label>
+                <input asp-for="QuentityStock" class="form-control" placeholder="الرصيد">
+                <span asp-validation-for="QuentityStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descreption" class="form-label mt-4"></label>
+                <input asp-for="Descreption" class="form-control" placeholder="الرصيد">
+                <span asp-validation-for="Descreption" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="form-label mt-4"></label>
+                <input type="file" class="form-control" asp-for="Image" />
+                            <span asp-validation-for="Image" class="text-danger d-block"></span>
+            </div>
+            <button type="submit" class="btn btn-light text-black mt-4">حفظ</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
+            <img class="cover-preview" alt="Cover" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/game-form.js" asp-append-version="true"></script>
+    
+}

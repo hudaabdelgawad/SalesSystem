@@ -1,0 +1,11 @@
+﻿@model SalesSystem.Reports.BayInvoiceReport
+<h1>تقرير المبيعات</h1>
+<partial name="_Libariries"></partial>
+
+
+
+
+@Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(Model)
+
+
+

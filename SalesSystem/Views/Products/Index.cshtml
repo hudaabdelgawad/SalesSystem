@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = " سجل الاصناف";
+}
+<a class="btn btn-primary btn-lg" asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    اضافة صنف
+</a>
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">لا يوجد اصناف</h4>
+        <p class="mb-0">لم يتم اضافة صنف.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-hover" id="sampleTable">
+            <thead>
+                <tr>
+                    <th scope="col">الباركود</th>
+                    <th scope="col">اسم الصنف</th>
+                    <th scope="col">المخزن</th>
+                    <th scope="col">اسم المجموعه</th>
+                       <th scope="col">الكميه </th>
+                          <th scope="col">سعر الشراء </th>
+                    <th scope="col">سعر البيع</th>
+                    <th scope="col"> ملاحظات</th>
+                    <th>صورة المنتج</th>
+                    <th align="center">عمليات</th>
+                 
+                    @* <td>تفاصيل</td>
+                    <td scope="col">تعديل  </td>
+                    <td scope="col"> حذف</td> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+
+                        <td>@product.Barcode</td>
+
+                        <td>@product.Name</td>
+
+                        <td>@product.Stock.NameStock</td>
+                        <td>@product.Item.Name</td>
+
+                        <td>@product.QuentityStock</td>
+                        <td>@product.PricePruchase</td>
+
+                        <td>@product.PriceSale</td>
+                        <td>@product.Descreption</td>
+
+
+                       <td><img src="~/assets/images/games/@product.Image" style="width:50px; height:50px;"/></td>
+
+                        <td class="align-middle">
+                            <a class="btn btn-info rounded rounded-3 me-2" asp-action="" asp-route-id="@product.Id">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a class="btn btn-info rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@product.Id">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@product.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                      @*   <td>
+                            <a class="btn btn-info rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@product.Id">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@product.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td> *@
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+@section Scripts
+{
+    <script src="~/js/games-index.js" asp-append-version="true"></script>
+}

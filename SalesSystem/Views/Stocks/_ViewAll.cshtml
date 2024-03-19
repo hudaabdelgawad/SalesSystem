@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Stock>
+
+@{
+    ViewData["Title"] = " سجل المخازن";
+}
+
+<a class="btn btn-success text-white btn-lg" onclick="showInPopup('@Url.Action("AddOrEdit","Stocks",null,Context.Request.Scheme)','اضافة مخزن')">
+
+    <i class="bi bi-plus-circle-dotted"></i>
+    اضافة مخزن
+</a>
+@* <a  asp-action="AddOrEdit" class="btn btn-success text-white"><i class="fas fa-random"></i> New Transaction</a>
+ *@
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">لا يوجد مخازن</h4>
+        <p class="mb-0">لم يتم اضافة مخزن.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-hover" id="sampleTable">
+            <thead>
+                <tr>
+                    <th scope="col">اسم المخزن </th>
+                    <th scope="col">امين المخزن </th>
+
+                    <th scope="col">التلفون </th>
+                    <th scope="col">العنوان</th>
+
+                    <th scope="col">الاحداث  </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var stock in Model)
+                {
+                    <tr>
+
+
+
+                        <td>@stock.NameStock</td>
+                        <td>@stock.AmeenStock</td>
+
+
+                        <td>@stock.Phone</td>
+
+                        <td>@stock.Address</td>
+
+                      <td>
+                            <a onclick="showInPopup('@Url.Action("AddOrEdit","Stocks",new {id=stock.Id},Context.Request.Scheme)',' تعديل المخزن')" class="btn btn-info rounded rounded-3 me-2">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@stock.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+

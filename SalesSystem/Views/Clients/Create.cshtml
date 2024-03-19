@@ -1,0 +1,49 @@
+﻿@model CreateClientFormViewModel
+@{
+    ViewData["Title"] = "اضافه عميل";
+}
+<h5>اضافة عميل <i class="bi bi-plus-circle-dotted"></i></h5>
+   
+    
+<form asp-controller="Clients" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name" class="form-label mt-4"></label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger">  </span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idtype" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="Idtype" asp-items="Model.ClientType"
+                        data-placeholder="اختر نوع العميل" data-minimum-results-for-search="Infinity">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="Idtype" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Address" class="form-label mt-4"></label>
+                <textarea asp-for="Address" class="form-control" placeholder="العنوان"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="form-label mt-4"></label>
+                <input asp-for="Phone" class="form-control" placeholder="التلفون">
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountBalance" class="form-label mt-4"></label>
+                <input asp-for="AccountBalance" class="form-control" placeholder="الرصيد">
+                <span asp-validation-for="AccountBalance" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-light text-black mt-4">حفظ</button>
+        </div>
+      
+    </div>
+</form>
+@section Scripts{
+<partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,188 @@
+﻿ @model Order
+
+
+@{
+    ViewData["Title"] = " عرض  تفاصيل فواتير المبيعات";
+}
+@Model.Stock?.NameStock
+@Model.Client?.Name
+@Model.OrderDate.ToString("yyyyy-MM-dd")
+@Model.Total
+@Model.Id
+
+
+
+    <div class="row pt-3" style="background:#7ecff9">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>رقم الفاتورة</label>
+                <input class="form-control" readonly value="@Model.Id" type="text" />
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>تاريخ الفاتوره</label>
+            <input disabled class="form-control" type="date" value="@Model.OrderDate.ToString("yyyyy-MM-dd")" />
+                @*                 <span asp-validation-for="NewBuyInovice.OrderDate" class="text-danger"></span>
+                *@
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>العميل</label>
+                <select class="form-select ">
+                    <option value="@Model.Client?.Name">@Model.Client?.Name</option>
+                </select>
+                @*  <span asp-validation-for="NewBuyInovice.ClientId" class="text-danger"></span> *@
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label> المخزن</label>
+                <select class="form-select "  class=" form-control" id="ddlStockId" onchange="ShowProduct()">
+                    <option value="@Model.Stock?.NameStock">@Model.Stock?.NameStock  </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="background:#7ecff9">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>اسم الصنف</label>
+                <select class="form-select "  class=" form-control" id="ddlProduct" onchange="ShowPrice()">
+                    <option value="">أختر أسم الصنف</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الرصيد الافتتاحي للمخزون</label>
+                <input class="form-control" readonly id="quentityStock" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الكميه المباعه </label>
+                <input class="form-control" readonly id="Orderquentity" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الرصيد المتاح في المخزن</label>
+                <input class="form-control" readonly id="quentityStockNow" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>سعر الشراء</label>
+                <input class="form-control" readonly id="price" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الكمية</label>
+                <input class="form-control" type="number" value="1" id="quntity" min="1" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الخصم</label>
+                <input class="form-control" type="number" value="0" id="discount" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>الباركود</label>
+            <input class="form-control" id="barcode" disabled />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+            <label disabled>اضافة</label>
+            <a disabled class="btn btn-success btn-small" onclick="SavaPrducts()" style="color:#ffff"><i disabled class="bi bi-download"></i></a>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+
+
+
+    <div class="row">
+        <div class="col-md-12" style="height:200px; overflow-y:auto;">
+            <table class="table table-striped table-bordered table-hover w-100">
+                <thead style="background:#a7f5b9">
+                    <tr>
+                        <td class="col-1">#</td>
+                        <td class="col-2">الباركود</td>
+                        <td class="col-4">الصنف</td>
+                        <td class="col-1">السعر</td>
+                        <td class="col-1">الكمية</td>
+                        <td class="col-1">الخصم</td>
+                        <td class="col-2">الاجمالي</td>
+                        <td class="col-1">الاحداث</td>
+                    </tr>
+                </thead>
+                <tbody id="tablebody">
+                @foreach (var order in Model.OrderDetailList)
+                {
+                    <tr>
+                          <td class="col-1">#</td>
+                        <td class="col-1">@order.Product.Name</td>
+                        <td class="col-1">@order.Product.Barcode</td>
+                        <td class="col-2">@order.PriceSale</td>
+                        <td class="col-4">@order.Quentit</td>
+                        <td class="col-1">@order.Discount</td>
+                        <td class="col-1">@order.Total</td>
+                      
+                       
+                        <td class="col-1">الاحداث</td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+
+
+     
+    <div class="row pt-3" style="background:#a7f5b9">
+        <div class="col-md-4  mb-1">
+            <input class="btn btn-success" type="submit"disabled value="حفظ الفاتورة" /> |
+        <input readonly class="btn btn-danger" value="حذف البيانات" disabled />
+        </div>
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">بعد الخصم</span>
+                </div>
+            <input readonly class="form-control" readonly type="number" id="afterDescount" value="@Model.AfterDiscount">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">خصم</span>
+                </div>
+                <input readonly class="form-control" type="number" id="discountTotal" value="@Model.Disount" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">الاجمالي</span>
+                </div>
+                <input readonly class="form-control" readonly type="number" id="allTotal" value="@Model.Total" />
+            </div>
+        </div>
+    </div>
+
+
+
+
+

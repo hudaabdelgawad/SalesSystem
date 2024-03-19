@@ -1,0 +1,9 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Rendering;
+global using SalesSystem.Data;
+global using SalesSystem.Services;
+global using SalesSystem.Models;
+global using SalesSystem.ViewModels;
+global using SalesSystem.Settings;

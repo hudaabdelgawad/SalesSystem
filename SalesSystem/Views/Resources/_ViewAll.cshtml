@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Resource>
+
+@{
+    ViewData["Title"] = " سجل  الموردين";
+}
+
+<a class="btn btn-success text-white btn-lg" onclick="showInPopup('@Url.Action("AddOrEdit","Resources",null,Context.Request.Scheme)','اضافة  موردين')">
+
+    <i class="bi bi-plus-circle-dotted"></i>
+    اضافة  موردين
+</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">لا يوجد  موردين</h4>
+        <p class="mb-0">لم يتم اضافة  موردين.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-hover" id="sampleTable">
+            <thead>
+                <tr>
+                    <th scope="col">اسم المورد </th>
+                    <th scope="col">عنوان المورد  </th>
+                    <th scope="col">تلفون المورد  </th>
+                    <th scope="col">اسم المجموعة   </th>
+
+                   
+                    <th scope="col">الاحداث  </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var resource in Model)
+                {
+                    <tr>
+
+
+
+                        <td>@resource.Name</td>
+                        <td>@resource.Address</td>
+                        <td>@resource.Phone</td>
+                        <td>@resource.ResourceType.Name</td>
+                        
+
+                        
+
+                      <td>
+                            <a onclick="showInPopup('@Url.Action("AddOrEdit","Resources",new {id=resource.Id},Context.Request.Scheme)',' تعديل  الموردين')" class="btn btn-info rounded rounded-3 me-2">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@resource.Id">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+

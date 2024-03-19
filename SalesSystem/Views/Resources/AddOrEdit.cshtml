@@ -1,0 +1,76 @@
+﻿@model CreateResourceFormViewModel
+@* @{
+    Layout = null;
+} *@
+@{
+    ViewData["Title"] = "اضافه  موردين";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+           
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">#</div>
+                    </div>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Idtype" class="form-label mt-4"></label>
+                        <select class="form-select" asp-for="Idtype" asp-items="Model.ResourceType"
+                                data-placeholder="اختر المجموعة " data-minimum-results-for-search="Infinity">
+                            <option value=""></option>
+                        </select>
+                        <span asp-validation-for="Idtype" class="text-danger"></span>
+                    </div>
+
+                </div>
+            
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12 ">
+                    <input type="submit" value="حفظ" class="btn btn-primary btn-block m-2" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+   @*  <partial name="_ValidationScriptsPartial" />
+  *@  
+  
+  @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/stock.js" asp-append-version="true"></script>
+ 
+}
